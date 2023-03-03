@@ -49,7 +49,7 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+uint32_t reg;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -88,6 +88,9 @@ int main(void)
   GPIOC_MODERu.bits.B6 = 1;
   GPIOC_OTYPERu.bits.B6 = 0;
   GPIOC_OSPEEDRu.bits.B6 = 3;
+
+ // GPIOA_MODERu.bits.B0 = 0;
+ // GPIOA_PUPDRu.bits.B0 = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -97,10 +100,12 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  GPIOC_ODRu.bits.B6 = 1;
-	  HAL_Delay(500);
-	  GPIOC_ODRu.bits.B6 = 0;
-	  HAL_Delay(500);
+
+	  if(GPIOA_IDRu.bits.B0){
+		  GPIOC_ODRu.bits.B6 = 1;
+	  }else{
+		  GPIOC_ODRu.bits.B6 = 0;
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -150,10 +155,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+//  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PA0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PC6 */
   //GPIO_InitStruct.Pin = GPIO_PIN_6;
