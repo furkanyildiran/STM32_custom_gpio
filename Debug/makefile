@@ -60,8 +60,8 @@ all: main-build
 main-build: bare_metal.elf secondary-outputs
 
 # Tool invocations
-bare_metal.elf bare_metal.map: $(OBJS) $(USER_OBJS) C:\Users\MONSTER\Desktop\STM32_custom_gpio\STM32F072RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "bare_metal.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\MONSTER\Desktop\STM32_custom_gpio\STM32F072RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bare_metal.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+bare_metal.elf bare_metal.map: $(OBJS) $(USER_OBJS) C:\Users\MONSTER\Desktop\a\STM32_custom_gpio\STM32F072RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "bare_metal.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0 -T"C:\Users\MONSTER\Desktop\a\STM32_custom_gpio\STM32F072RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="bare_metal.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

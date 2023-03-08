@@ -292,9 +292,57 @@ typedef enum{
 #define _CECEN					0x1E
 
 
-#define
-#define _
-#define _
+#define	_LSEON					0x00
+#define _LSERDY					0x01
+#define _LSEBYP					0x02
+#define	_LSEDRV					0x03
+#define _RTCSEL					0x08
+#define _RTCEN					0x0F
+#define	_BDRST					0x10
+
+
+#define _LSION					0x00
+#define _LSIRDY					0x01
+#define _V18PWRRSTF				0x17
+#define _RMVF					0x18
+#define _OBLRSTF				0x19
+#define _PINRSTF				0x1A
+#define _PORRSTF				0x1B
+#define _SFTRSTF				0x1C
+#define _IWDGRSTF				0x1D
+#define _WWDGRSTF				0x1E
+#define _LPWRRSTF				0x1F
+
+
+#define _IOPARST				0x11
+#define _IOPBRST				0x12
+#define _IOPCRST				0x13
+#define _IOPDRST				0x14
+#define _IOPERST				0x15
+#define _IOPFRST				0x16
+#define _TSCRST					0x18
+
+
+#define _PREDIV					0x00
+
+
+#define _USART1SW				0x00
+#define _I2C1SW					0x04
+#define _CECSW					0x06
+#define _USBSW					0x07
+#define _ADCSW					0x08
+#define _USART2SW				0x10
+#define _USART3SW				0x12
+
+
+#define _HSI14ON				0x00
+#define _HSI14RDY				0x01
+#define _HSI14DIS				0x02
+#define _HSI14TRIM				0x03
+#define _HSI14CAL				0x08
+#define _HSI48ON				0x10
+#define _HSI48RDY				0x11
+#define _HSI48CAL				0x18
 
 
 #endif
