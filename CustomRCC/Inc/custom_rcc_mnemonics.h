@@ -3,7 +3,7 @@ extern "C" {
 #endif
 #ifndef __CUSTOM_RCC_H__
 #define __CUSTOM_RCC_H__
-
+/*Addres of RCC register offset*/
 #define RCC_BASE_ADDR					0x40021000
 #define RCC_CR_ADDR_OFFSET				0x00
 #define RCC_CFGR_ADDR_OFFSET			0x04
@@ -19,7 +19,7 @@ extern "C" {
 #define RCC_CFGR2_ADDR_OFFSET			0x2C
 #define RCC_CFGR3_ADDR_OFFSET			0x30
 #define RCC_CR2_ADDR_OFFSET				0x34
-
+/*Address of RCC register*/
 #define RCC_CR_ADDR						(volatile uint32_t*)(0x00 + RCC_CR_ADDR_OFFSET)
 #define RCC_CFGR_ADDR					(volatile uint32_t*)(0x04 + RCC_CFGR_ADDR_OFFSET)
 #define RCC_CIR_ADDR					(volatile uint32_t*)(0x08 + RCC_CIR_ADDR_OFFSET)
@@ -34,7 +34,7 @@ extern "C" {
 #define RCC_CFGR2_ADDR					(volatile uint32_t*)(0x2C + RCC_CFGR2_ADDR_OFFSET)
 #define RCC_CFGR3_ADDR					(volatile uint32_t*)(0x30 + RCC_CFGR3_ADDR_OFFSET)
 #define RCC_CR2_ADDR					(volatile uint32_t*)(0x34 + RCC_CR2_ADDR_OFFSET)
-
+/*Register of RCC*/
 #define RCC_CR							(*RCC_CR2_ADDR)
 #define RCC_CFGR						(*RCC_CFGR_ADDR)
 #define RCC_CIR							(*RCC_CIR_ADDR)
@@ -49,7 +49,7 @@ extern "C" {
 #define RCC_CFGR2						(*RCC_CFGR2_ADDR)
 #define RCC_CFGR3						(*RCC_CFGR3_ADDR)
 #define RCC_CR2							(*RCC_CR2_ADDR)
-
+/*Clock control register*/
 #define _HSION							0x00
 #define _HSIRDY							0x01
 #define _HSITRIM						0x03
@@ -60,7 +60,7 @@ extern "C" {
 #define _CSSON							0x13
 #define _PLLON							0x18
 #define _PLLRDY							0x19
-
+/*Clock control register options*/
 typedef enum{
 	HSI_OFF,
 	HSI_ON
@@ -93,7 +93,7 @@ typedef enum{
 	PLL_unlocked,
 	PLL_locked
 }PLLRDY;
-
+/*Clock configuration register*/
 #define _SW						0x00
 #define _SWS					0x02
 #define _HPRE					0x04
@@ -105,7 +105,7 @@ typedef enum{
 #define _MCO					0x18
 #define _MCOPRE					0x1C
 #define _PLLNODIV				0x1F
-
+/*Clock configuration register options*/
 typedef enum{
 	HSI_selc_sys_clock,
 	HSE_selc_sys_clock,
@@ -184,7 +184,7 @@ typedef enum{
 	PLL_div2_forMCO,
 	PLL_notdiv_forMCO,
 }PLLNODIV;
-
+/*Clock interrupt register*/
 #define _LSIRDYF				0x00
 #define _LSERDYF				0x01
 #define _HSIRDYF				0x02
@@ -208,12 +208,7 @@ typedef enum{
 #define _HSI14RDYC				0x15
 #define _HSI48RDYC				0x16
 #define _CSSC					0x17
-
-
-
-
-
-
+/*APB peripheral reset register2*/
 #define _SYSCFGRST				0x00
 #define _USART6RST				0x05
 #define _USART7RST				0x06
@@ -226,7 +221,7 @@ typedef enum{
 #define _TIM16RST				0x11
 #define _TIM17RST				0x12
 #define DBGMCURST				0x16
-
+/*APB peripheral reset register1*/
 #define _TIM2RST				0x00
 #define _TIM3RST				0x01
 #define _TIM6RST				0x04
@@ -246,7 +241,7 @@ typedef enum{
 #define _PWRRST					0x1C
 #define _DACRST					0x1D
 #define _CECRST					0x1E
-
+/*AHB peripheral clock enable register*/
 #define _DMAEN					0x00
 #define _DAM2EN					0x01
 #define _SRAMEN					0x02
@@ -259,8 +254,7 @@ typedef enum{
 #define _IOPEEN					0x15
 #define _IOPFEN					0x16
 #define _TSCEN					0x18
-
-
+/*APB peripheral clock enable register2*/
 #define _SYSCFGCOMPEN			0x00
 #define _USART6EN				0x05
 #define _USART7EN				0x06
@@ -273,8 +267,7 @@ typedef enum{
 #define _TIM16EN				0x12
 #define _TIM17EN				0x13
 #define _DBGMCUEN				0x17
-
-
+/*APB peripheral clock enable register1*/
 #define _TIM2EN					0x00
 #define _TIM3EN					0x01
 #define _TIM6EN					0x04
@@ -294,17 +287,15 @@ typedef enum{
 #define _PWREN					0x1C
 #define _DACEN					0x1D
 #define _CECEN					0x1E
-
-
+/*RTC domain control register*/
 #define	_LSEON					0x00
 #define _LSERDY					0x01
-#define _LSEBYP					0x02
+#define _7LSEBYP					0x02
 #define	_LSEDRV					0x03
 #define _RTCSEL					0x08
 #define _RTCEN					0x0F
 #define	_BDRST					0x10
-
-
+/*Control/status register*/
 #define _LSION					0x00
 #define _LSIRDY					0x01
 #define _V18PWRRSTF				0x17
@@ -316,8 +307,7 @@ typedef enum{
 #define _IWDGRSTF				0x1D
 #define _WWDGRSTF				0x1E
 #define _LPWRRSTF				0x1F
-
-
+/*AHB peripheral reset register*/
 #define _IOPARST				0x11
 #define _IOPBRST				0x12
 #define _IOPCRST				0x13
@@ -325,10 +315,9 @@ typedef enum{
 #define _IOPERST				0x15
 #define _IOPFRST				0x16
 #define _TSCRST					0x18
-
-
+/*Clock configuration register2*/
 #define _PREDIV					0x00
-
+/*Clock configuration register2 options*/
 typedef enum{
 	PREDIV_INPUT_CLK_NOT_DIV,
 	PREDIV_INPUT_CLK_DIV2,
@@ -347,8 +336,7 @@ typedef enum{
 	PREDIV_INPUT_CLK_DIV15,
 	PREDIV_INPUT_CLK_DIV16
 }PREDIV;
-
-
+/*Clock configuration register3*/
 #define _USART1SW				0x00
 #define _I2C1SW					0x04
 #define _CECSW					0x06
@@ -356,16 +344,14 @@ typedef enum{
 #define _ADCSW					0x08
 #define _USART2SW				0x10
 #define _USART3SW				0x12
-
+/*Clock configuration register3 options*/
 typedef enum{
 	PCLK_CLK_SOURCE,
 	SYSCLK_CLK_SOURCE,
 	LSE_CLK_SOURCE,
 	HSI_CLK_SOURCE
 }USART1SW, USART2SW, USART3SW;
-
-
-
+/*Clock control register2*/
 #define _HSI14ON				0x00
 #define _HSI14RDY				0x01
 #define _HSI14DIS				0x02

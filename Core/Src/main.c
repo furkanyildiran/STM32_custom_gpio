@@ -50,6 +50,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 uint32_t reg;
+uint32_t *reg_ptr = &reg;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -107,6 +108,7 @@ int main(void)
 		  GPIOC_ODRu.bits.B6 = 0;
 	  }*/
 	  if((GPIOA->IDR & 0x1)){
+		  reg++;
 		  GPIOC->ODR |= (1 << 6);
 	  }
 	  else{
