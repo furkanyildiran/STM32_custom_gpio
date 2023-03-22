@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 #include "custom_gpio_mnemonics.h"
 #include "custom_gpio.h"
+#include "custom_rcc_mnemonics.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,12 +87,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  /*GPIOC_MODERu.bits.B6 = 1;
+  RCC_AHBENR |= (1 << _IOPAEN) | (1 << _IOPCEN);
+  RCC_APB1ENR |= (1 << _PWREN);
+  GPIOC_MODERu.bits.B6 = 1;
   GPIOC_OTYPERu.bits.B6 = 0;
   GPIOC_OSPEEDRu.bits.B6 = 3;
 
- // GPIOA_MODERu.bits.B0 = 0;
- // GPIOA_PUPDRu.bits.B0 = 1;
+  GPIOA_MODERu.bits.B0 = 0;
+  GPIOA_PUPDRu.bits.B0 = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,6 +104,8 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  RCC_CR |= (HSI_ON << _HSION);
+	  while(!(RCC_CR&(HSI_ready<<_HSIRDY)));
 
 	  /*if(GPIOA_IDRu.bits.B0){
 		  GPIOC_ODRu.bits.B6 = 1;
@@ -163,11 +168,11 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  //__HAL_RCC_GPIOA_CLK_ENABLE();
+  //__HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+  //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PA0 */
  /* GPIO_InitStruct.Pin = GPIO_PIN_0;
@@ -176,11 +181,11 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);*/
 
   /*Configure GPIO pin : PC6 */
-  GPIO_InitStruct.Pin = GPIO_PIN_6;
+  /*GPIO_InitStruct.Pin = GPIO_PIN_6;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);*/
 
 }
 

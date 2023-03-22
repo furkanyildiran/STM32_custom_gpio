@@ -20,20 +20,20 @@ extern "C" {
 #define RCC_CFGR3_ADDR_OFFSET			0x30
 #define RCC_CR2_ADDR_OFFSET				0x34
 /*Address of RCC register*/
-#define RCC_CR_ADDR						(volatile uint32_t*)(0x00 + RCC_CR_ADDR_OFFSET)
-#define RCC_CFGR_ADDR					(volatile uint32_t*)(0x04 + RCC_CFGR_ADDR_OFFSET)
-#define RCC_CIR_ADDR					(volatile uint32_t*)(0x08 + RCC_CIR_ADDR_OFFSET)
-#define RCC_APB2RSTR_ADDR				(volatile uint32_t*)(0x0C + RCC_APB2RSTR_ADDR_OFFSET)
-#define RCC_APB1RSTR_ADDR				(volatile uint32_t*)(0x10 + RCC_APB1RSTR_ADDR_OFFSET)
-#define RCC_AHBENR_ADDR					(volatile uint32_t*)(0x14 + RCC_AHBENR_ADDR_OFFSET)
-#define RCC_APB2ENR_ADDR				(volatile uint32_t*)(0x18 + RCC_APB2ENR_ADDR_OFFSET)
-#define RCC_APB1ENR_ADDR				(volatile uint32_t*)(0x1C + RCC_APB1ENR_ADDR_OFFSET)
-#define RCC_BDCR_ADDR					(volatile uint32_t*)(0x20 + RCC_BDCR_ADDR_OFFSET)
-#define RCC_CSR_ADDR					(volatile uint32_t*)(0x24 + RCC_CSR_ADDR_OFFSET)
-#define RCC_AHBRSTR_ADDR				(volatile uint32_t*)(0x28 + RCC_AHBRSTR_ADDR_OFFSET)
-#define RCC_CFGR2_ADDR					(volatile uint32_t*)(0x2C + RCC_CFGR2_ADDR_OFFSET)
-#define RCC_CFGR3_ADDR					(volatile uint32_t*)(0x30 + RCC_CFGR3_ADDR_OFFSET)
-#define RCC_CR2_ADDR					(volatile uint32_t*)(0x34 + RCC_CR2_ADDR_OFFSET)
+#define RCC_CR_ADDR						(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CR_ADDR_OFFSET)
+#define RCC_CFGR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR_ADDR_OFFSET)
+#define RCC_CIR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CIR_ADDR_OFFSET)
+#define RCC_APB2RSTR_ADDR				(volatile uint32_t*)(RCC_BASE_ADDR + RCC_APB2RSTR_ADDR_OFFSET)
+#define RCC_APB1RSTR_ADDR				(volatile uint32_t*)(RCC_BASE_ADDR + RCC_APB1RSTR_ADDR_OFFSET)
+#define RCC_AHBENR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_AHBENR_ADDR_OFFSET)
+#define RCC_APB2ENR_ADDR				(volatile uint32_t*)(RCC_BASE_ADDR + RCC_APB2ENR_ADDR_OFFSET)
+#define RCC_APB1ENR_ADDR				(volatile uint32_t*)(RCC_BASE_ADDR + RCC_APB1ENR_ADDR_OFFSET)
+#define RCC_BDCR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_BDCR_ADDR_OFFSET)
+#define RCC_CSR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CSR_ADDR_OFFSET)
+#define RCC_AHBRSTR_ADDR				(volatile uint32_t*)(RCC_BASE_ADDR + RCC_AHBRSTR_ADDR_OFFSET)
+#define RCC_CFGR2_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR2_ADDR_OFFSET)
+#define RCC_CFGR3_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR3_ADDR_OFFSET)
+#define RCC_CR2_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CR2_ADDR_OFFSET)
 /*Register of RCC*/
 #define RCC_CR							(*RCC_CR2_ADDR)
 #define RCC_CFGR						(*RCC_CFGR_ADDR)
@@ -212,7 +212,7 @@ typedef enum{
 #define _SYSCFGRST				0x00
 #define _USART6RST				0x05
 #define _USART7RST				0x06
-#define _USART7RST				0x07
+#define _USART8RST				0x07
 #define _ADCRST					0x09
 #define _TIM1RST				0x0B
 #define _SPI1RST				0x0C
