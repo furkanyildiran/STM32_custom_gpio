@@ -78,23 +78,26 @@ int main(void)
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+  //SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
+  RCC_CR2 |= (1 << 16);//HSI48ON
+  while(!(RCC->CR2 & (1 << 17)));//HSI48RDY control
+  reg=1;
+  //RCC_CFGR |= (3 << 0);
 
+  RCC_CFGRu.reg.SW = 3;
+  if(RCC_CFGRu.reg.SWS == 3)reg=2;
+  RCC_CFGR |= (9 << 4);
+  RCC_AHBENR |= (1 << 19);
+  GPIOC_MODER |= (1 << 12);
+  GPIOC_OTYPER &= ~(1 << 6);
+  GPIOC_OSPEEDR |= (3 << 6);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
+  //MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  RCC_AHBENR |= (1 << _IOPAEN) | (1 << _IOPCEN);
-  RCC_APB1ENR |= (1 << _PWREN);
-  GPIOC_MODERu.bits.B6 = 1;
-  GPIOC_OTYPERu.bits.B6 = 0;
-  GPIOC_OSPEEDRu.bits.B6 = 3;
-
-  GPIOA_MODERu.bits.B0 = 0;
-  GPIOA_PUPDRu.bits.B0 = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -104,21 +107,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  RCC_CR |= (HSI_ON << _HSION);
-	  while(!(RCC_CR&(HSI_ready<<_HSIRDY)));
 
 	  /*if(GPIOA_IDRu.bits.B0){
 		  GPIOC_ODRu.bits.B6 = 1;
 	  }else{
 		  GPIOC_ODRu.bits.B6 = 0;
 	  }*/
-	  if((GPIOA->IDR & 0x1)){
-		  reg++;
-		  GPIOC->ODR |= (1 << 6);
-	  }
-	  else{
-		  GPIOC->ODR &= ~(1 << 6);
-	  }
+	  GPIOC_ODR |= (1 << 6);
+	  HAL_Delay(500);
+	  GPIOC_ODR &= ~(1 << 6);
+	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
