@@ -3,6 +3,7 @@ extern "C" {
 #endif
 #ifndef __CUSTOM_RCC_H__
 #define __CUSTOM_RCC_H__
+
 /*Addres of RCC register offset*/
 #define RCC_BASE_ADDR					0x40021000
 #define RCC_CR_ADDR_OFFSET				0x00
@@ -19,6 +20,7 @@ extern "C" {
 #define RCC_CFGR2_ADDR_OFFSET			0x2C
 #define RCC_CFGR3_ADDR_OFFSET			0x30
 #define RCC_CR2_ADDR_OFFSET				0x34
+
 /*Address of RCC register*/
 #define RCC_CR_ADDR						(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CR_ADDR_OFFSET)
 #define RCC_CFGR_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR_ADDR_OFFSET)
@@ -34,6 +36,7 @@ extern "C" {
 #define RCC_CFGR2_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR2_ADDR_OFFSET)
 #define RCC_CFGR3_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CFGR3_ADDR_OFFSET)
 #define RCC_CR2_ADDR					(volatile uint32_t*)(RCC_BASE_ADDR + RCC_CR2_ADDR_OFFSET)
+
 /*Register of RCC*/
 #define RCC_CR							(*RCC_CR2_ADDR)
 #define RCC_CFGR						(*RCC_CFGR_ADDR)
@@ -64,12 +67,13 @@ typedef struct{
 	uint32_t :4;
 	uint32_t PLLON:1;
 	uint32_t PLLRDY:1;
-}RCC_CR_t;
+}RCC_CR_s;
 typedef union{
 	uint32_t val;
-	RCC_CR_t reg;
+	RCC_CR_s reg;
 }RCC_CR_u, *RCC_CR_uptr;
 #define RCC_CRu		(*((RCC_CR_uptr)(RCC_BASE_ADDR + RCC_CR_ADDR_OFFSET)))
+/*RCC_CR typedef end*/
 
 /*RCC_CFGR typedef*/
 typedef struct{
@@ -86,12 +90,13 @@ typedef struct{
 	uint32_t MCO:4;
 	uint32_t MCOPRE:3;
 	uint32_t PLL_NODIV:1;
-}RCC_CFGR_t;
+}RCC_CFGR_s;
 typedef union{
 	uint32_t val;
-	RCC_CFGR_t reg;
+	RCC_CFGR_s reg;
 }RCC_CFGR_u,*RCC_CFGR_uptr;
 #define RCC_CFGRu		(*((RCC_CFGR_uptr)(RCC_BASE_ADDR + RCC_CFGR_ADDR_OFFSET)))
+/*RCC_CFGR typedef end*/
 
 /*RCC_CIR typedef*/
 typedef struct{
@@ -120,12 +125,13 @@ typedef struct{
 	uint32_t HSI48RDYC:1;
 	uint32_t CSSC:1;
 	uint32_t :8;
-}RCC_CIR_t;
+}RCC_CIR_s;
 typedef union{
-	RCC_CIR_t reg;
+	RCC_CIR_s reg;
 	uint32_t val;
 }RCC_CIR_u, *RCC_CUR_uptr;
 #define RCC_CIRu		(*((RCC_CUR_uptr)(RCC_BASE_ADDR + RCC_CIR_ADDR_OFFSET)))
+/*RCC_CIR typedef end*/
 
 /*RCC_APB2RSTR typedef*/
 typedef struct{
@@ -148,12 +154,13 @@ typedef struct{
 	uint32_t :3;
 	uint32_t DBGMCURST:1;
 	uint32_t :9;
-}RCC_APB2RSTR_t;
+}RCC_APB2RSTR_s;
 typedef union{
-	RCC_APB2RSTR_t reg;
+	RCC_APB2RSTR_s reg;
 	uint32_t val;
 }RCC_APB2RSTR_u, *RCC_APB2RSTR_uptr;
 #define RCC_APB2RSTRu		(*((RCC_APB2RSTR_uptr)(RCC_APB2RSTR + RCC_BASE_ADDR)))
+/*RCC_APB2RSTR typedef end*/
 
 /*RCC_APB1RSTR typedef*/
 typedef struct{
@@ -184,12 +191,13 @@ typedef struct{
 	uint32_t DACRST:1;
 	uint32_t CECRST:1;
 	uint32_t :1;
-}RCC_APB1RSTR_t;
+}RCC_APB1RSTR_s;
 typedef union{
-	RCC_APB1RSTR_t reg;
+	RCC_APB1RSTR_s reg;
 	uint32_t val;
 }RCC_APB1RST_u, *RCC_APB1RSTR_uptr;
 #define RCC_APB1RSTu		(*((RCC_APB1RSTR_uptr)(RCC_BASE_ADDR + RCC_APB1RSTR_ADDR_OFFSET)))
+/*RCC_APB1RSTR typedef end*/
 
 /*RCC_AHBENR typedef*/
 typedef struct{
@@ -210,11 +218,12 @@ typedef struct{
 	uint32_t :1;
 	uint32_t TSCEN:1;
 	uint32_t :7;
-}RCC_AHBENR_t;
+}RCC_AHBENR_s;
 typedef union{
-	RCC_AHBENR_t reg;
+	RCC_AHBENR_s reg;
 	uint32_t val;
 }RCC_AHBENR_u, RCC_AHBENR_uptr;
+/*RCC_AHBENR typedef end*/
 
 /*RCC_APB2ENR typedef*/
 typedef struct{
@@ -237,15 +246,164 @@ typedef struct{
 	uint32_t :3;
 	uint32_t DBGMCUEN:1;
 	uint32_t :9;
-}RCC_APB2ENR_t;
+}RCC_APB2ENR_s;
 typedef union{
-	RCC_APB2ENR_t reg;
+	RCC_APB2ENR_s reg;
 	uint32_t val;
 }RCC_APB2ENR_u, *RCC_APB2ENR_uptr;
 #define RCC_APB2ENRu		(*((RCC_APB2ENR_uptr)(RCC_BASE_ADDR + RCC_APB2ENR_ADDR_OFFSET)))
-
+/*RCC_APB2ENR typedef end*/
 
 /*RCC_APB1ENR typedef*/
+typedef struct{
+	uint32_t TIM2EN:1;
+	uint32_t TIM3EN:1;
+	uint32_t :2;
+	uint32_t TIM6EN:1;
+	uint32_t TIM7EN:1;
+	uint32_t :2;
+	uint32_t TIM14EN:1;
+	uint32_t :2;
+	uint32_t WWDGEN:1;
+	uint32_t :2;
+	uint32_t SPI2EN:1;
+	uint32_t :2;
+	uint32_t USART2EN:1;
+	uint32_t USART3EN:1;
+	uint32_t USART4EN:1;
+	uint32_t USART5EN:1;
+	uint32_t I2C1EN:1;
+	uint32_t I2C2EN:1;
+	uint32_t USBEN:1;
+	uint32_t :1;
+	uint32_t CANEN:1;
+	uint32_t :1;
+	uint32_t CRSEN:1;
+	uint32_t PWREN:1;
+	uint32_t DACEN:1;
+	uint32_t CECEN:1;
+	uint32_t :1;
+}RCC_APB1ENR_s;
+typedef union{
+	RCC_APB1ENR_s reg;
+	uint32_t val;
+}RCC_APB1ENR_u, *RCC_APB1ENR_uptr;
+#define RCC_APB1ENRu			(*((RCC_APB1ENR_uptr)(RCC_BASE_ADDR + RCC_APB1ENR_ADDR_OFFSET)))
+/*RCC_APB1ENR typedef end*/
+
+/*RCC_BDCR typedef*/
+typedef struct{
+	uint32_t LSEON:1;
+	uint32_t LSERDY:1;
+	uint32_t LSEBYP:1;
+	uint32_t LSEDRV:2;
+	uint32_t :3;
+	uint32_t RTCSEL:2;
+	uint32_t :5;
+	uint32_t RTCEN:1;
+	uint32_t BDRST:1;
+	uint32_t :15;
+}RCC_BDCR_s;
+typedef union{
+	RCC_BDCR_s reg;
+	uint32_t val;
+}RCC_BDCR_u, *RCC_BDCR_uptr;
+#define RCC_BDCRu				(*((RCC_BDCR_uptr)(RCC_BASE_ADDR + RCC_BDCR_ADDR_OFFSET)))
+/*RCC_BDCR typedef end*/
+
+/*RCC_CSR typedef*/
+typedef struct{
+	uint32_t LSION:1;
+	uint32_t LSIRDY:1;
+	uint32_t :22;
+	uint32_t RMVF:1;
+	uint32_t OBLRSTF:1;
+	uint32_t PINRSTF:1;
+	uint32_t PORRSTF:1;
+	uint32_t SFTRSTF:1;
+	uint32_t IWDGRSTF:1;
+	uint32_t WWDGRSTF:1;
+	uint32_t LPWRSTF:1;
+}RCC_CSR_s;
+typedef union{
+	RCC_CSR_s reg;
+	uint32_t val;
+}RCC_CSR_u, *RCC_CSR_uptr;
+#define RCC_CSRu				(*((RCC_CSR_uptr)(RCC_BASE_ADDR + RCC_CSR_ADDR_OFFSET)))
+/*RCC_CSR typedef end*/
+
+/*RCC_AHBRSTR typedef*/
+typedef struct{
+	uint32_t :17;
+	uint32_t IOPARST:1;
+	uint32_t IOPBRST:1;
+	uint32_t IOPCRST:1;
+	uint32_t IOPDRST:1;
+	uint32_t IOPERST:1;
+	uint32_t IOPFRST:1;
+	uint32_t :1;
+	uint32_t TSCRST:1;
+	uint32_t :7;
+}RCC_AHBRSTR_s;
+typedef union{
+	RCC_AHBRSTR_s reg;
+	uint32_t val;
+}RCC_AHBRSTR_u, *RCC_AHBRSTR_uptr;
+#define RCC_AHBRSTRu			(*((RCC_AHBRSTR_uptr)(RCC_BASE_ADDR + RCC_AHBRSTR_ADDR_OFFSET)))
+/*RCC_AHBRSTR typedef end*/
+
+/*RCC_CFGR2 typedef*/
+typedef struct{
+	uint32_t PREDIV:4;
+	uint32_t :28;
+}RCC_CFGR2_s;
+typedef union{
+	RCC_CFGR2_s reg;
+	uint32_t val;
+}RCC_CFGR2_u, *RCC_CFGR2_uptr;
+#define RCC_CFGR2u				(*((RCC_CFGR2_uptr)(RCC_BASE_ADDR + RCC_CFGR2_ADDR_OFFSET)))
+/*RCC_CFGR2 typedef end*/
+
+/*RCC_CFGR3 typedef*/
+typedef struct{
+	uint32_t USART1SW:2;
+	uint32_t :2;
+	uint32_t I2C1SW:1;
+	uint32_t :1;
+	uint32_t CECSW:1;
+	uint32_t USBSW:1;
+	uint32_t ADCSW:1;
+	uint32_t :7;
+	uint32_t USART2SW:2;
+	uint32_t USART3SW:2;
+	uint32_t :12;
+}RCC_CFGR3_s;
+typedef union{
+	RCC_CFGR3_s reg;
+	uint32_t val;
+}RCC_CFGR3_u, *RCC_CFGR3_uptr;
+#define RCC_CFGR3u				(*((RCC_CFGR3_uptr)(RCC_BASE_ADDR + RCC_CFGR3_ADDR_OFFSET)))
+/*RCC_CFGR3 typedef end*/
+
+/*RCC_CR2 typedef*/
+typedef struct{
+	uint32_t HSI14ON:1;
+	uint32_t HSI14RDY:1;
+	uint32_t HSI14DIS:1;
+	uint32_t HSI14TRIM:5;
+	uint32_t HSI14CAL:8;
+	uint32_t HSI48ON:1;
+	uint32_t HSI48RDY:1;
+	uint32_t :6;
+	uint32_t HSI48CAL:8;
+}RCC_CR2_s;
+typedef union{
+	RCC_CR2_s reg;
+	uint32_t val;
+}RCC_CR2_u, *RCC_CR2_uptr;
+#define RCC_CR2u				(*((RCC_CR2_uptr)(RCC_BASE_ADDR + RCC_CR2_ADDR_OFFSET)))
+/*RCC_CR2 typedef end*/
+
 /*Clock control register*/
 #define _HSION							0x00
 #define _HSIRDY							0x01
