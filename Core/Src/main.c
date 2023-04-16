@@ -50,12 +50,11 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-uint32_t reg;
-uint32_t *reg_ptr = &reg;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint16_t port_val;
 /* USER CODE END 0 */
 
 /**
@@ -71,7 +70,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+ // HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -81,23 +80,21 @@ int main(void)
   //SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  RCC_CR2 |= (1 << 16);//HSI48ON
-  while(!(RCC->CR2 & (1 << 17)));//HSI48RDY control
-  reg=1;
-  //RCC_CFGR |= (3 << 0);
-
-  RCC_CFGRu.reg.SW = 3;
-  if(RCC_CFGRu.reg.SWS == 3)reg=2;
-  RCC_CFGR |= (9 << 4);
-  RCC_AHBENR |= (1 << 19);
-  GPIOC_MODER |= (1 << 12);
-  GPIOC_OTYPER &= ~(1 << 6);
-  GPIOC_OSPEEDR |= (3 << 6);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   //MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+	RCC_CR2 |= (1<<16);
+	while((RCC_CR2&(131072)) != 131072);
+	RCC_CFGR |= 3;
+	while((RCC_CFGR&12) != 12);
+	RCC_AHBENR |= (1 << 17) | (1 << 19);
+
+	GPIOA_OSPEEDR = 1;
+
+	GPIOC_MODER = (1 << 12);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -107,16 +104,19 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+/*	  port_val = ((GPIOB->IDR) >> 3)&0xff;
+	  uint8_t temp=0;
+	  if(!(port_val&0x1)) temp = 1;
+	  else if(!(port_val&0x2)) temp = 2;
+	  else if(!(port_val&0x04)) temp = 3;
+	  else if(!(port_val&0x08)) temp = 4;
+	  else if(!(port_val&0x10)) temp = 5;
+	  else if(!(port_val&0x20)) temp = 6;
+	  else if(!(port_val&0x40)) temp = 7;
+	  else if(!(port_val&0x80)) temp = 8;
+	  else temp = 0;
+	  GPIOC->ODR = temp<<6;*/
 
-	  /*if(GPIOA_IDRu.bits.B0){
-		  GPIOC_ODRu.bits.B6 = 1;
-	  }else{
-		  GPIOC_ODRu.bits.B6 = 0;
-	  }*/
-	  GPIOC_ODR |= (1 << 6);
-	  HAL_Delay(500);
-	  GPIOC_ODR &= ~(1 << 6);
-	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
 }
@@ -166,24 +166,32 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  //__HAL_RCC_GPIOA_CLK_ENABLE();
-  //__HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PA0 */
- /* GPIO_InitStruct.Pin = GPIO_PIN_0;
+  /*Configure GPIO pins : PB10 PB3 PB4 PB5
+                           PB6 PB9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5
+                          |GPIO_PIN_6|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);*/
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PC6 */
-  /*GPIO_InitStruct.Pin = GPIO_PIN_6;
+  /*Configure GPIO pins : PC6 PC7 PC8 PC9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);*/
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB7 PB8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
